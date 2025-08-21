@@ -8,12 +8,6 @@ const nextConfig: NextConfig = {
   // Enable experimental features for better performance
   experimental: {
     optimizeServerReact: true,
-    // Only set turbo root in local development
-    ...(process.env.NODE_ENV !== 'production' && {
-      turbo: {
-        root: process.cwd(),
-      },
-    }),
   },
 
   // Suppress hydration warnings for browser extensions
