@@ -1,0 +1,145 @@
+
+> timerwithmusic@0.1.0 dev
+> next dev --turbopack -p 7000 -p 7001
+
+ ⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/chuyoujing/package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /Users/chuyoujing/Documents/编程项目/timerwithmusic/package-lock.json
+
+   ▲ Next.js 15.5.0 (Turbopack)
+   - Local:        http://localhost:7001
+   - Network:      http://172.16.101.108:7001
+
+ ✓ Starting...
+ ✓ Ready in 1632ms
+ ○ Compiling /timer/custom ...
+
+warn - The utility `` contains an invalid theme value and was not generated.
+ ✓ Compiled /timer/custom in 8.7s
+ GET /timer/custom 200 in 10149ms
+ ○ Compiling /test-js ...
+ ✓ Compiled /test-js in 576ms
+ GET /test-js 200 in 942ms
+ GET /test-js 200 in 397ms
+ ○ Compiling / ...
+ GET /manifest.webmanifest 200 in 1369ms
+ GET /favicon.ico?favicon.0b3bf435.ico 200 in 1502ms
+ ✓ Compiled / in 1977ms
+ GET /timer/10-minutes-music 200 in 4342ms
+ GET /timer/5-minutes-music 200 in 4361ms
+ GET / 200 in 4522ms
+ GET /timer/15-minutes-music 200 in 775ms
+ GET /timer/20-minutes-music 200 in 778ms
+ GET /timer/25-minutes-music 200 in 956ms
+ ○ Compiling /pomodoro ...
+ GET /timer/30-minutes-music 200 in 604ms
+ GET /timer/custom 200 in 745ms
+ GET /pomodoro 200 in 2076ms
+ ✓ Compiled /pomodoro in 2.1s
+ GET /offline 200 in 1657ms
+ GET /manifest.json 404 in 1324ms
+ GET /timer/custom 200 in 447ms
+ GET /timer/5-minutes-music 200 in 1064ms
+ GET /timer/10-minutes-music 200 in 1071ms
+ GET / 200 in 1234ms
+ GET /timer/15-minutes-music 200 in 769ms
+ GET /timer/20-minutes-music 200 in 771ms
+ GET /timer/25-minutes-music 200 in 930ms
+ GET /timer/30-minutes-music 200 in 936ms
+ GET /pomodoro 200 in 957ms
+ GET /timer/custom 200 in 845ms
+ GET /offline 200 in 421ms
+ GET /manifest.json 404 in 409ms
+ ✓ Compiled in 264ms
+ ✓ Compiled in 164ms
+ ✓ Compiled /timer/custom in 167ms
+ GET /timer/custom 200 in 905ms
+ GET /timer/5-minutes-music 200 in 993ms
+ GET /timer/10-minutes-music 200 in 999ms
+ GET / 200 in 1107ms
+ GET /timer/15-minutes-music 200 in 701ms
+ GET /timer/20-minutes-music 200 in 711ms
+ GET /timer/25-minutes-music 200 in 830ms
+ GET /timer/30-minutes-music 200 in 681ms
+ GET /pomodoro 200 in 704ms
+ GET /timer/custom 200 in 663ms
+ GET /offline 200 in 530ms
+ GET /manifest.json 404 in 498ms
+ ✓ Compiled in 437ms
+ ✓ Compiled in 380ms
+ GET /timer/custom 404 in 186ms
+ ✓ Compiled in 0ms
+ ✓ Compiled /timer/custom in 49ms
+ ⨯ ReferenceError: DurationPickerBasic is not defined
+    at CustomTimerPage (src/app/timer/custom/page.tsx:47:14)
+  45 |           {/* Duration Picker */}
+  46 |           <div>
+> 47 |             <DurationPickerBasic />
+     |              ^
+  48 |           </div>
+  49 |
+  50 |           {/* Timer */} {
+  digest: '1632874353'
+}
+ GET /timer/custom 500 in 1129ms
+ ✓ Compiled in 456ms
+ ✓ Compiled /timer/custom in 85ms
+ GET /timer/custom 200 in 1498ms
+ GET /favicon.ico 200 in 1469ms
+ GET /timer/5-minutes-music 200 in 1027ms
+ GET /timer/10-minutes-music 200 in 1149ms
+ GET / 200 in 1209ms
+ GET /timer/15-minutes-music 200 in 448ms
+ GET /timer/20-minutes-music 200 in 793ms
+ GET /timer/25-minutes-music 200 in 825ms
+ GET /timer/30-minutes-music 200 in 736ms
+ GET /pomodoro 200 in 1256ms
+ GET /timer/custom 200 in 1188ms
+ GET /offline 200 in 611ms
+ GET /manifest.json 404 in 318ms
+ ✓ Compiled in 440ms
+ ✓ Compiled in 635ms
+ ✓ Compiled in 566ms
+ ✓ Compiled in 445ms
+ ✓ Compiled in 758ms
+
+thread 'tokio-runtime-worker' panicked at crates/next-api/src/dynamic_imports.rs:70:26:
+called `Option::unwrap()` on a `None` value
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+ ✓ Compiled in 526ms
+ ✓ Compiled in 535ms
+ ✓ Compiled in 652ms
+ ✓ Compiled in 1168ms
+ ✓ Compiled in 1313ms
+ ✓ Compiled in 1062ms
+ ✓ Compiled in 597ms
+ ✓ Compiled in 3s
+ ✓ Compiled in 1517ms
+ ✓ Compiled in 2.1s
+ ⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+   ▲ Next.js 15.5.0 (Turbopack)
+   - Local:        http://localhost:7001
+   - Network:      http://172.16.101.108:7001
+
+ ✓ Starting...
+ ✓ Ready in 1845ms
+ ⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+   ▲ Next.js 15.5.0 (Turbopack)
+   - Local:        http://localhost:7001
+   - Network:      http://172.16.101.108:7001
+
+ ✓ Starting...
+ ✓ Ready in 3.2s
+ ⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+   ▲ Next.js 15.5.0 (Turbopack)
+   - Local:        http://localhost:7001
+   - Network:      http://172.16.101.108:7001
+   - Experiments (use with caution):
+     · turbo
+
+ ✓ Starting...
+ ✓ Ready in 1375ms
+[?25h

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Generator</title>
+</head>
+<body>
+    <h1>Audio File Generator</h1>
+    <p>Click the buttons to generate and download test audio files:</p>
+    
+    <button onclick="generateAudio('rain')">Generate Rain Sound</button>
+    <button onclick="generateAudio('ocean')">Generate Ocean Sound</button>
+    <button onclick="generateAudio('cafe')">Generate Cafe Sound</button>
+    <button onclick="generateAudio('white')">Generate White Noise</button>
+
+    <script>
+        function generateAudio(type) {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const length = 10; // 10 seconds
+            const sampleRate = audioContext.sampleRate;
+            const buffer = audioContext.createBuffer(1, length * sampleRate, sampleRate);
+            const data = buffer.getChannelData(0);
+
+            // Generate different types of sounds
+            for (let i = 0; i < data.length; i++) {
+                switch (type) {
+                    case 'rain':
+                        // Pink noise for rain
+                        data[i] = (Math.random() * 2 - 1) * 0.1 * Math.sin(i * 0.001);
+                        break;
+                    case 'ocean':
+                        // Low frequency waves
+                        data[i] = Math.sin(i * 0.01) * 0.05 + Math.random() * 0.02 - 0.01;
+                        break;
+                    case 'cafe':
+                        // Mixed frequencies
+                        data[i] = (Math.random() * 2 - 1) * 0.03;
+                        break;
+                    case 'white':
+                        // White noise
+                        data[i] = (Math.random() * 2 - 1) * 0.1;
+                        break;
+                }
+            }
+
+            // Convert to WAV and download
+            const wav = encodeWAV(buffer);
+            const blob = new Blob([wav], { type: 'audio/wav' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${type}.wav`;
+            a.click();
+            
+            URL.revokeObjectURL(url);
+        }
+
+        function encodeWAV(buffer) {
+            const length = buffer.length;
+            const arrayBuffer = new ArrayBuffer(44 + length * 2);
+            const view = new DataView(arrayBuffer);
+            const data = buffer.getChannelData(0);
+
+            // WAV header
+            const writeString = (offset, string) => {
+                for (let i = 0; i < string.length; i++) {
+                    view.setUint8(offset + i, string.charCodeAt(i));
+                }
+            };
+
+            writeString(0, 'RIFF');
+            view.setUint32(4, 36 + length * 2, true);
+            writeString(8, 'WAVE');
+            writeString(12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true);
+            view.setUint16(22, 1, true);
+            view.setUint32(24, buffer.sampleRate, true);
+            view.setUint32(28, buffer.sampleRate * 2, true);
+            view.setUint16(32, 2, true);
+            view.setUint16(34, 16, true);
+            writeString(36, 'data');
+            view.setUint32(40, length * 2, true);
+
+            // Convert float32 to int16
+            let offset = 44;
+            for (let i = 0; i < length; i++) {
+                const sample = Math.max(-1, Math.min(1, data[i]));
+                view.setInt16(offset, sample * 0x7FFF, true);
+                offset += 2;
+            }
+
+            return arrayBuffer;
+        }
+    </script>
+</body>
+</html>
