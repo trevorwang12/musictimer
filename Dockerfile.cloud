@@ -1,0 +1,59 @@
+# Cloud deployment Dockerfile with proper static asset handling
+# Optimized for Dokploy, Railway, Render, etc.
+
+FROM node:18-alpine AS base
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+
+# Install dependencies
+FROM base AS deps
+COPY package*.json ./
+RUN npm ci
+
+# Build application  
+FROM base AS builder
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+# Build without turbopack for cloud compatibility
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
+RUN npm run build:production
+
+# Production image
+FROM base AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Create user for security
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+# Copy all necessary files
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/public ./public
+
+# Set proper permissions for .next directory
+RUN mkdir .next
+RUN chown nextjs:nodejs .next
+
+# Copy standalone build and static assets
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE 3000
+
+# Environment variables for proper static serving
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "const http = require('http'); http.get('http://localhost:3000', (res) => process.exit(res.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1));"
+
+# Start using node directly for better control
+CMD ["node", "server.js"]
