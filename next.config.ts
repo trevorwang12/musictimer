@@ -3,13 +3,17 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Enable standalone output for Docker deployment
   output: 'standalone',
+  outputFileTracingRoot: __dirname,
   
   // Enable experimental features for better performance
   experimental: {
     optimizeServerReact: true,
-    turbo: {
-      root: '/Users/chuyoujing/Documents/编程项目/timerwithmusic',
-    },
+    // Only set turbo root in local development
+    ...(process.env.NODE_ENV !== 'production' && {
+      turbo: {
+        root: process.cwd(),
+      },
+    }),
   },
 
   // Suppress hydration warnings for browser extensions

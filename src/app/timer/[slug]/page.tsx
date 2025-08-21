@@ -348,20 +348,3 @@ export default async function TimerPage({ params }: PageProps) {
   );
 }
 
-// JSON-LD structured data for SEO
-export function generateJsonLd(minutes: number) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": `${minutes} Minute Timer with Music`,
-    "description": `Free online ${minutes}-minute countdown timer with relaxing background music`,
-    "url": `https://yourdomain.com/timer/${minutes}-minutes-music`,
-    "applicationCategory": "Productivity",
-    "operatingSystem": "Web Browser",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
-  };
-}
