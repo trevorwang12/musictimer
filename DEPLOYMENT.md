@@ -33,8 +33,13 @@ PORT=3000  # Or your preferred port
 
 ### Build Commands
 - **Build Command**: `npm run build:production`
-- **Start Command**: `npm start`
+- **Start Command**: `npm start` (uses standalone server.js)
 - **Node Version**: 18.x or higher
+
+### Important Notes
+- The app uses Next.js standalone output for optimal Docker deployment
+- Production start command: `node .next/standalone/server.js`
+- Development start command: `npm run start:dev` (for local testing)
 
 ## 🐳 Docker Deployments
 

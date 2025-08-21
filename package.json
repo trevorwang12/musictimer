@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack -p 7000",
     "build": "next build --turbopack",
     "build:production": "next build",
-    "start": "next start -p 7000",
+    "start": "PORT=${PORT:-7000} node .next/standalone/server.js",
+    "start:dev": "next start -p 7000",
     "lint": "eslint"
   },
   "dependencies": {

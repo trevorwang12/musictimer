@@ -51,4 +51,5 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["node", "server.js"]
+# Use npm start which sets the correct PORT
+CMD ["npm", "start"]
