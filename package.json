@@ -6,10 +6,12 @@
     "dev": "next dev --turbopack -p 7000",
     "dev:standard": "next dev -p 7000",
     "build": "ENABLE_HEADERS=true next build && node scripts/fix-standalone.js",
+    "build:docker": "ENABLE_HEADERS=true NODE_ENV=production next build && node scripts/fix-standalone.js",
     "build:turbo": "next build --turbopack",
     "start": "PORT=${PORT:-7000} node .next/standalone/server.js",
     "start:dev": "next start -p 7000",
-    "lint": "eslint"
+    "lint": "eslint",
+    "verify": "node scripts/verify-deployment.js && node scripts/fix-security-issues.js"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
