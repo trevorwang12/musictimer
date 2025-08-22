@@ -34,14 +34,29 @@ export function PomodoroSettingsNoSSR({ className = '' }: PomodoroSettingsProps)
   // Update local state when store changes
   useEffect(() => {
     if (mounted) {
-      setLocalSettings({
+      const storeSettings = {
         workMinutes: pomodoro.workMinutes,
         shortBreakMinutes: pomodoro.shortBreakMinutes,
         longBreakMinutes: pomodoro.longBreakMinutes,
         cycles: pomodoro.cycles,
-      });
+      };
+      setLocalSettings(storeSettings);
+      setHasChanges(false); // Reset changes when syncing with store
     }
   }, [pomodoro, mounted]);
+
+  // Check if local settings differ from store settings
+  useEffect(() => {
+    if (mounted) {
+      const hasChangedSettings = 
+        localSettings.workMinutes !== pomodoro.workMinutes ||
+        localSettings.shortBreakMinutes !== pomodoro.shortBreakMinutes ||
+        localSettings.longBreakMinutes !== pomodoro.longBreakMinutes ||
+        localSettings.cycles !== pomodoro.cycles;
+      
+      setHasChanges(hasChangedSettings);
+    }
+  }, [localSettings, pomodoro, mounted]);
 
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -51,24 +66,26 @@ export function PomodoroSettingsNoSSR({ className = '' }: PomodoroSettingsProps)
       [key]: value,
     };
     setLocalSettings(newSettings);
-    setHasChanges(true);
     
-    // Clear existing timeout
+    // Clear existing timeout to prevent auto-save conflicts
     if (saveTimeoutRef.current) {
       clearTimeout(saveTimeoutRef.current);
     }
-    
-    // Auto-save changes after a short delay for better UX
-    saveTimeoutRef.current = setTimeout(() => {
-      setPomodoroSettings({ [key]: value });
-      setHasChanges(false);
-    }, 500);
   };
 
   const handleSave = () => {
-    // Save settings
+    // Clear any pending auto-save
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current);
+      saveTimeoutRef.current = null;
+    }
+    
+    // Save all settings to store
     setPomodoroSettings(localSettings);
     setHasChanges(false);
+    
+    // Optional: Show feedback to user
+    console.log('Pomodoro settings saved:', localSettings);
   };
 
   const handleReset = () => {
@@ -105,6 +122,12 @@ export function PomodoroSettingsNoSSR({ className = '' }: PomodoroSettingsProps)
   ];
 
   const handlePreset = (preset: typeof presets[0]) => {
+    // Clear any pending timeouts
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current);
+      saveTimeoutRef.current = null;
+    }
+    
     // Apply preset
     const newSettings = {
       workMinutes: preset.work,
@@ -174,19 +197,14 @@ export function PomodoroSettingsNoSSR({ className = '' }: PomodoroSettingsProps)
               <button
                 key={preset.name}
                 onClick={() => handlePreset(preset)}
-                style={{
-                  padding: '6px 12px',
-                  border: '1px solid #ccc',
-                  borderRadius: '4px',
-                  backgroundColor: '#f8f9fa',
-                  cursor: 'pointer',
-                  fontSize: '12px'
-                }}
+                className="px-3 py-2 text-xs border border-border rounded-md
+                         bg-background hover:bg-muted transition-colors duration-200
+                         cursor-pointer text-left"
               >
-                {preset.name}
-                <span style={{ color: '#666', marginLeft: '4px' }}>
-                  ({preset.work}/{preset.short})
-                </span>
+                <div className="font-medium">{preset.name}</div>
+                <div className="text-muted-foreground text-[10px]">
+                  {preset.work}/{preset.short}min
+                </div>
               </button>
             ))}
           </div>
@@ -308,19 +326,14 @@ export function PomodoroSettingsNoSSR({ className = '' }: PomodoroSettingsProps)
           <button
             onClick={handleSave}
             disabled={!hasChanges}
-            style={{
-              flex: 1,
-              padding: '8px 16px',
-              backgroundColor: hasChanges ? '#007bff' : '#e9ecef',
-              color: hasChanges ? 'white' : '#6c757d',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: hasChanges ? 'pointer' : 'not-allowed',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '8px'
-            }}
+            className={`
+              flex-1 px-4 py-2 rounded-md border transition-all duration-200
+              flex items-center justify-center gap-2 font-medium text-sm
+              ${hasChanges 
+                ? 'bg-primary text-primary-foreground hover:bg-primary/90 border-primary cursor-pointer' 
+                : 'bg-muted text-muted-foreground border-border cursor-not-allowed opacity-60'
+              }
+            `}
           >
             <Save className="h-4 w-4" />
             Save Settings
@@ -329,14 +342,9 @@ export function PomodoroSettingsNoSSR({ className = '' }: PomodoroSettingsProps)
           {hasChanges && (
             <button
               onClick={handleRevert}
-              style={{
-                padding: '8px 16px',
-                backgroundColor: '#f8f9fa',
-                color: '#333',
-                border: '1px solid #ccc',
-                borderRadius: '4px',
-                cursor: 'pointer'
-              }}
+              className="px-4 py-2 text-sm font-medium border border-border rounded-md
+                       bg-background text-foreground hover:bg-muted
+                       transition-colors duration-200 cursor-pointer"
             >
               Cancel
             </button>
@@ -344,20 +352,13 @@ export function PomodoroSettingsNoSSR({ className = '' }: PomodoroSettingsProps)
           
           <button
             onClick={handleReset}
-            style={{
-              padding: '8px 16px',
-              backgroundColor: '#f8f9fa',
-              color: '#333',
-              border: '1px solid #ccc',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px'
-            }}
+            className="px-4 py-2 text-sm font-medium border border-border rounded-md
+                     bg-background text-foreground hover:bg-muted
+                     transition-colors duration-200 cursor-pointer
+                     flex items-center gap-2"
           >
             <RotateCcw className="h-4 w-4" />
-            Reset to Default
+            Reset
           </button>
         </div>
 

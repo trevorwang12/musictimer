@@ -1,9 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Enable standalone output for Docker deployment
-  output: 'standalone',
-  outputFileTracingRoot: __dirname,
+  // Enable standalone output for Docker deployment (production only)
+  ...(process.env.NODE_ENV === 'production' && {
+    output: 'standalone',
+    outputFileTracingRoot: __dirname,
+  }),
   
   // Enable experimental features for better performance
   experimental: {
@@ -22,11 +24,18 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 60 * 60 * 24 * 365, // 1 year
   },
 
-  // Compression settings
-  compress: true,
+  // Compression settings (production only)
+  ...(process.env.NODE_ENV === 'production' && {
+    compress: true,
+  }),
 
-  // Security headers
+  // Security headers - only apply in production
   async headers() {
+    // Skip custom headers in development to avoid conflicts
+    if (process.env.NODE_ENV !== 'production') {
+      return [];
+    }
+
     return [
       {
         source: '/(.*)',
@@ -61,7 +70,7 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      // Proper MIME types for static assets
+      // Proper MIME types for static assets (production only)
       {
         source: '/_next/static/(.*\\.js)$',
         headers: [
@@ -115,7 +124,7 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      // Default static assets
+      // Cache headers for production
       {
         source: '/_next/static/(.*)',
         headers: [
@@ -125,7 +134,6 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      // Cache audio files
       {
         source: '/audio/(.*)',
         headers: [
@@ -139,7 +147,6 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      // Cache images and icons
       {
         source: '/(icon-.*|favicon.*|.*\\.png|.*\\.jpg|.*\\.jpeg|.*\\.gif|.*\\.svg)',
         headers: [
