@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://timerwithmusic.com'; // Replace with your actual domain
+  const baseUrl = 'https://timerwithmusics.com';
   
   // Common timer durations for static generation
   const timerMinutes = [1, 2, 5, 10, 15, 20, 25, 30, 45, 60, 90, 120];
