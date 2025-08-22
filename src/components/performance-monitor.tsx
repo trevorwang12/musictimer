@@ -23,8 +23,8 @@ export function PerformanceMonitor() {
     // Skip during SSR
     if (typeof window === 'undefined') return;
     
-    // Monitor Core Web Vitals only in production
-    if (process.env.NODE_ENV !== 'production') return;
+    // Disable performance monitoring to improve performance
+    return;
 
     // Cumulative Layout Shift (CLS)
     const observeCLS = () => {

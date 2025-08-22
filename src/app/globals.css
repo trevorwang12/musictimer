@@ -2,6 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Performance optimizations */
+* {
+  /* Improve text rendering */
+  text-rendering: optimizeSpeed;
+  /* Reduce font variations */
+  font-feature-settings: normal;
+  /* Optimize animations */
+  will-change: auto;
+}
+
+/* Critical rendering optimizations */
+html {
+  /* Prevent layout shifts */
+  font-display: fallback;
+  /* Optimize scrolling */
+  scroll-behavior: smooth;
+  /* Improve touch interactions */
+  touch-action: manipulation;
+}
+
+/* Reduce CLS with stable layouts */
+img, video {
+  /* Prevent layout shifts */
+  max-width: 100%;
+  height: auto;
+}
+
+/* Optimize animations */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

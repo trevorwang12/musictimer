@@ -2,21 +2,22 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import PWAInstall from "@/components/pwa-install";
-import PerformanceMonitor from "@/components/performance-monitor";
 import { AudioSystemClient } from "@/components/audio-system-client";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-  display: "swap",
+  display: "fallback",
   preload: true,
+  fallback: ["system-ui", "arial"],
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-  display: "swap",
+  display: "optional",
   preload: false,
+  fallback: ["Menlo", "Monaco", "Consolas", "monospace"],
 });
 
 export const metadata: Metadata = {
@@ -32,18 +33,18 @@ export const metadata: Metadata = {
   referrer: "origin-when-cross-origin",
   creator: "Timer with Music",
   publisher: "Timer with Music",
-  metadataBase: new URL('https://timerwithmusic.com'),
+  metadataBase: new URL('https://timerwithmusics.com'),
   alternates: {
-    canonical: "https://timerwithmusic.com",
+    canonical: "https://timerwithmusics.com",
     languages: {
-      'en': "https://timerwithmusic.com",
-      'x-default': "https://timerwithmusic.com",
+      'en': "https://timerwithmusics.com",
+      'x-default': "https://timerwithmusics.com",
     },
   },
   openGraph: {
     title: "Timer with Music – Free Online Countdown Timer",
     description: "Free online countdown timer with relaxing background music. Perfect for study, work, meditation, and focus sessions.",
-    url: "https://timerwithmusic.com",
+    url: "https://timerwithmusics.com",
     siteName: "Timer with Music",
     locale: "en_US",
     type: "website",
@@ -106,10 +107,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <PerformanceMonitor />
         {children}
         <AudioSystemClient />
         <PWAInstall />

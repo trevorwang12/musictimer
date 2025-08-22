@@ -1,10 +1,31 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Clock, ArrowLeft } from "lucide-react";
-import PomodoroTimer from "@/components/pomodoro-timer";
-import PomodoroSettingsWrapper from "@/components/pomodoro-settings-wrapper";
-import { AudioControls } from "@/components/audio-controls";
+
+// Lazy load heavy components
+const PomodoroTimer = dynamic(() => import("@/components/pomodoro-timer"), {
+  loading: () => (
+    <div className="flex items-center justify-center h-64">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+    </div>
+  ),
+});
+
+const PomodoroSettingsWrapper = dynamic(() => import("@/components/pomodoro-settings-wrapper"), {
+  loading: () => (
+    <div className="h-96 bg-muted/50 rounded-lg animate-pulse flex items-center justify-center">
+      <span className="text-muted-foreground">Loading settings...</span>
+    </div>
+  ),
+});
+
+const AudioControls = dynamic(() => import("@/components/audio-controls").then(mod => ({ default: mod.AudioControls })), {
+  loading: () => (
+    <div className="h-20 bg-muted/50 rounded-lg animate-pulse"></div>
+  ),
+});
 
 export const metadata: Metadata = {
   title: "Pomodoro Timer with Music – Free 25/5 Technique Timer",
