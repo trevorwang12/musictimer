@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { SECURITY_HEADERS, CSP_POLICY } from './src/lib/constants';
 
 const nextConfig: NextConfig = {
   // Enable standalone output for Docker deployment (production only)

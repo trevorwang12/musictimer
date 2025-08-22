@@ -167,7 +167,7 @@ export async function GET(request: NextRequest) {
               color: '#9ca3af',
             }}
           >
-            timerwithmusic.com
+            timerwithmusics.com
           </div>
         </div>
       ),

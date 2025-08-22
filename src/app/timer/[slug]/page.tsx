@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const baseUrl = 'https://timerwithmusic.com'; // Replace with your actual domain
+  const baseUrl = 'https://timerwithmusics.com'; // Replace with your actual domain
   const pageUrl = `${baseUrl}/timer/${minutes}-minutes-music`;
   const ogImageUrl = `${baseUrl}/api/og?m=${minutes}`;
 
@@ -151,7 +151,7 @@ export default async function TimerPage({ params }: PageProps) {
   }
 
   const relatedTimers = getRelatedTimers(minutes);
-  const baseUrl = 'https://timerwithmusic.com';
+  const baseUrl = 'https://timerwithmusics.com';
   const pageUrl = `${baseUrl}/timer/${minutes}-minutes-music`;
 
   // Generate structured data

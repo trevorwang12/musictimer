@@ -34,11 +34,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Online Timer with Music – Free Countdown Timer",
     description: "Free online countdown timer with relaxing background music. Perfect for study, work, and focus sessions.",
-    url: "https://timerwithmusic.com",
+    url: "https://timerwithmusics.com",
     siteName: "Timer with Music",
     images: [
       {
-        url: "https://timerwithmusic.com/api/og?m=25",
+        url: "https://timerwithmusics.com/api/og?m=25",
         width: 1200,
         height: 630,
         alt: "Timer with Music - Free Online Countdown Timer",
@@ -51,11 +51,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Online Timer with Music – Free Countdown Timer",
     description: "Free online countdown timer with relaxing background music",
-    images: ["https://timerwithmusic.com/api/og?m=25"],
+    images: ["https://timerwithmusics.com/api/og?m=25"],
     creator: "@timerwithmusic",
   },
   alternates: {
-    canonical: "https://timerwithmusic.com",
+    canonical: "https://timerwithmusics.com",
   },
   robots: {
     index: true,
@@ -91,7 +91,7 @@ export default function Home() {
   const appData = generateSoftwareAppStructuredData({
     name: "Timer with Music",
     description: "Free online countdown timer with relaxing background music. Perfect for study, work, meditation, and focus sessions.",
-    url: "https://timerwithmusic.com",
+    url: "https://timerwithmusics.com",
   });
 
   const faqData = generateFAQStructuredData([

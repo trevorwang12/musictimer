@@ -73,12 +73,12 @@ export function generateWebsiteStructuredData() {
     name: 'Timer with Music',
     alternateName: 'Online Timer with Background Music',
     description: 'Free online countdown timer with relaxing background music. Perfect for study, work, meditation, and focus sessions.',
-    url: 'https://timerwithmusic.com',
+    url: 'https://timerwithmusics.com',
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: 'https://timerwithmusic.com/timer/{search_term_string}-minutes-music',
+        urlTemplate: 'https://timerwithmusics.com/timer/{search_term_string}-minutes-music',
       },
       'query-input': 'required name=search_term_string',
     },
@@ -101,8 +101,8 @@ export function generateHowToStructuredData(minutes?: number) {
     name: `How to Use ${timeText} Timer with Music`,
     description: `Step-by-step guide to using our ${timeText} online countdown timer with background music for productivity and focus.`,
     image: minutes 
-      ? `https://timerwithmusic.com/api/og?m=${minutes}`
-      : 'https://timerwithmusic.com/api/og?m=25',
+      ? `https://timerwithmusics.com/api/og?m=${minutes}`
+      : 'https://timerwithmusics.com/api/og?m=25',
     totalTime: 'PT2M',
     estimatedCost: {
       '@type': 'MonetaryAmount',
@@ -132,7 +132,7 @@ export function generateHowToStructuredData(minutes?: number) {
         text: minutes 
           ? `The timer is pre-set to ${minutes} minutes for optimal ${getUseCase(minutes)}.`
           : 'Choose your desired duration using the time picker or preset buttons.',
-        image: 'https://timerwithmusic.com/api/og?m=25',
+        image: 'https://timerwithmusics.com/api/og?m=25',
       },
       {
         '@type': 'HowToStep',
@@ -170,7 +170,7 @@ export function generateArticleStructuredData(title: string, description: string
     publisher: {
       '@type': 'Organization',
       name: 'Timer with Music',
-      url: 'https://timerwithmusic.com',
+      url: 'https://timerwithmusics.com',
     },
     mainEntityOfPage: {
       '@type': 'WebPage',

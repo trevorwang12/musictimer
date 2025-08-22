@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://timerwithmusic.com'; // Replace with your actual domain
+  const baseUrl = 'https://timerwithmusics.com';
 
   return {
     rules: [
