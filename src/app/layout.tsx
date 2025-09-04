@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import PWAInstall from "@/components/pwa-install";
 import { AudioSystemClient } from "@/components/audio-system-client";
+import GoogleAnalytics from "@/components/google-analytics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -115,19 +116,6 @@ export default function RootLayout({
         
         {/* Google AdSense */}
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4861826910865457" crossOrigin="anonymous"></script>
-        
-        {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-QLDF2JTB30"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-QLDF2JTB30');
-            `,
-          }}
-        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -135,6 +123,7 @@ export default function RootLayout({
         {children}
         <AudioSystemClient />
         <PWAInstall />
+        <GoogleAnalytics />
       </body>
     </html>
   );
