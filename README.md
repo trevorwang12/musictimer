@@ -28,8 +28,8 @@ A modern, accessible online countdown timer with relaxing background music. Buil
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+ 
-- npm or yarn
+- Node.js 20+
+- npm
 - Docker (optional, for containerized deployment)
 
 ### Installation
@@ -158,9 +158,9 @@ The app uses a loop-based audio system that automatically repeats short audio fi
 
 Located in `public/audio/`:
 - `rain.mp3` - Gentle rainfall sounds
-- `ocean.mp3` - Calming ocean waves 
-- `cafe.mp3` - Coffee shop ambiance
-- `white.mp3` - White noise for focus
+- `ocean-waves.mp3` - Calming ocean waves 
+- `cafe-ambiance.mp3` - Coffee shop ambiance
+- `white-noise.mp3` - White noise for focus
 
 #### How Audio Looping Works
 
@@ -254,7 +254,7 @@ export type SoundID =
 
 ```bash
 npm run dev
-# Navigate to http://localhost:7001
+# Navigate to http://localhost:7000
 # Your new sounds will appear in the audio controls
 ```
 
@@ -309,11 +309,14 @@ The app is optimized for Core Web Vitals:
 ### Environment Variables
 
 ```env
-# Optional: Google Site Verification
-NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=your-verification-code
+# Production environment
+NODE_ENV=production
 
-# Optional: Analytics
-NEXT_PUBLIC_GA_ID=your-google-analytics-id
+# Enable headers for production builds
+ENABLE_HEADERS=true
+
+# Server port (default: 7000)
+PORT=7000
 ```
 
 ### PWA Configuration
@@ -381,13 +384,25 @@ npm i -g vercel
 vercel
 ```
 
-### Other Platforms
+### Cloud Platforms
 
-The app can be deployed to any platform supporting Next.js:
-- **Docker**: Any container platform (Docker Hub, AWS ECR, etc.)
-- **Cloud**: Netlify, Railway, DigitalOcean App Platform
-- **VPS**: Any Linux server with Docker support
-- **Kubernetes**: Using the Docker image
+The app supports various deployment platforms:
+
+**Container Platforms:**
+- Docker Hub, AWS ECR, Google Container Registry
+- Any platform supporting Docker containers
+
+**Cloud Providers:**
+- Vercel (recommended for Next.js)
+- Netlify
+- Render
+- DigitalOcean App Platform
+- Railway
+
+**Self-hosted:**
+- VPS with Docker support
+- Kubernetes clusters
+- Traditional web hosting with Node.js support
 
 ## 🤝 Contributing
 
@@ -410,34 +425,43 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔄 Recent Updates
 
-### v1.2.0 - Dynamic Routing & Next.js 15 Support
+### v1.3.0 - Production Optimization & Docker Enhancement
+- ✅ **Production Ready**: Optimized standalone builds with proper static file serving
+- ✅ **Docker Improvements**: Multi-stage builds, security enhancements, health checks
+- ✅ **Performance Optimizations**: Reduced bundle size, improved Core Web Vitals
+- ✅ **HTTPS Security**: Enhanced security headers and CSP configuration
+- ✅ **Audio System**: Improved reliability and browser compatibility
+- ✅ **Pomodoro Timer**: Fixed settings save functionality and state management
+
+### Previous Updates
+
+#### v1.2.0 - Dynamic Routing & Next.js 15 Support
 - ✅ **Fixed Dynamic Routes**: All timer URLs now work correctly (e.g., `/timer/5-minutes-music`)
 - ✅ **Next.js 15 Compatibility**: Updated to support async params and latest features
 - ✅ **SEO Improvements**: Dynamic metadata generation for all timer pages
 - ✅ **Route Structure**: Changed from `[minutes]-minutes-music` to `[slug]` for better URL handling
 
-### Known Issues
-- ⚠️ **Custom Timer Interactivity**: Some users may experience unresponsive controls on `/timer/custom`
-  - **Workaround**: Refresh the page or try using preset timer durations instead
-  - **Status**: Under investigation - likely related to client-side hydration
-
 ## 🛠️ Troubleshooting
 
 ### Common Issues
 
-**Dynamic Routes Not Working (404 errors)**
-- ✅ **Fixed**: Update to latest version - all timer routes now work correctly
+**Build or Deployment Issues**
+- Ensure Node.js 20+ is installed
+- Run `npm run verify` to check deployment readiness
+- Check Docker logs: `docker logs <container-name>`
+- Verify environment variables are set correctly
 
-**Custom Timer Controls Not Responding**
-- Try refreshing the browser page
+**Timer or Audio Issues**
 - Clear browser cache and localStorage
-- Use preset duration buttons instead of custom inputs
 - Check browser console for JavaScript errors
+- Ensure browser allows audio autoplay (user interaction required)
+- Verify internet connection for audio streaming
 
-**Audio Not Playing**
-- Ensure browser allows autoplay (required user interaction first)
-- Check volume settings in both browser and app
-- Verify internet connection (audio files are streamed)
+**Performance Issues**
+- Use production build: `npm run build && npm start`
+- Enable hardware acceleration in browser
+- Check for browser extensions that might interfere
+- Monitor memory usage in browser dev tools
 
 ## 📞 Support
 

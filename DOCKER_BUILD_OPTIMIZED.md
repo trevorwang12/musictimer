@@ -103,16 +103,25 @@ dockerfilePath: ./Dockerfile.cloud
 ### npm警告消除
 - ❌ `npm warn config production Use --omit=dev instead.`
 - ✅ 使用现代npm命令`--omit=dev`
+- ✅ 消除所有构建过程中的警告信息
+
+### 静态资源问题修复
+- ❌ 生产部署中静态文件404错误
+- ❌ MIME类型配置错误
+- ✅ 自动复制静态文件到standalone构建
+- ✅ 正确的Content-Type头部配置
 
 ### 构建性能提升
 - ⚡ 使用多阶段构建减少层数
 - ⚡ 并行化依赖安装
 - ⚡ 优化缓存层
+- ⚡ 减少最终镜像大小约15%
 
 ### 镜像安全性
 - 🔒 最小化运行时依赖
 - 🔒 使用非root用户运行
 - 🔒 health check监控
+- 🔒 增强的安全头部配置
 
 ## 🧪 验证清单
 
@@ -142,3 +151,6 @@ dockerfilePath: ./Dockerfile.cloud
 - 📦 镜像大小减少约15%
 - ⚠️ 消除所有npm警告
 - 🔒 增强安全性和稳定性
+- 🎧 修复静态资源404错误
+- 🔊 修复MIME类型配置问题
+- ⚙️ 自动化部署验证流程
