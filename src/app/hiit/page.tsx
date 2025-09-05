@@ -95,7 +95,7 @@ export default function HIITTimerPage() {
     minutes: 30, // Default HIIT session length
   });
 
-  const howToData = generateHowToStructuredData(30, "HIIT");
+  const howToData = generateHowToStructuredData(30);
 
   const structuredData = combineStructuredData(faqData, appData, howToData);
 
@@ -227,7 +227,7 @@ export default function HIITTimerPage() {
                 <CardContent>
                   <p className="text-muted-foreground">
                     HIIT burns more calories in less time and continues burning calories 
-                    after your workout through the "afterburn effect" (EPOC).
+                    after your workout through the &quot;afterburn effect&quot; (EPOC).
                   </p>
                 </CardContent>
               </Card>
