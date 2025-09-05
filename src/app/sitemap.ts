@@ -3,8 +3,8 @@ import { MetadataRoute } from 'next';
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://timerwithmusics.com';
   
-  // Common timer durations for static generation
-  const timerMinutes = [1, 2, 5, 10, 15, 20, 25, 30, 45, 60, 90, 120];
+  // Common timer durations for static generation (including new ones)
+  const timerMinutes = [1, 2, 5, 6, 8, 9, 10, 15, 20, 25, 30, 35, 45, 60, 90, 120];
   
   // Base pages
   const staticPages: MetadataRoute.Sitemap = [
@@ -16,6 +16,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/pomodoro`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/hiit`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.9,

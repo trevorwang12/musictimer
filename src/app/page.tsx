@@ -77,11 +77,20 @@ const PRESET_TIMERS = [
   { minutes: 1, description: "Quick focus" },
   { minutes: 2, description: "Short break" },
   { minutes: 5, description: "Micro session" },
+  { minutes: 6, description: "Light focus" },
+  { minutes: 8, description: "Brief focus" },
+  { minutes: 9, description: "Calm focus" },
   { minutes: 10, description: "Study sprint" },
   { minutes: 15, description: "Work block" },
-  { minutes: 20, description: "Deep focus" },
+  { minutes: 20, description: "Calming music" },
   { minutes: 25, description: "Pomodoro" },
   { minutes: 30, description: "Extended focus" },
+  { minutes: 35, description: "Long session" },
+];
+
+// Special timers that are not time-based
+const SPECIAL_TIMERS = [
+  { href: "/hiit", title: "HIIT Timer", description: "Interval training", icon: "Zap" },
 ];
 
 export default function Home() {
@@ -146,6 +155,31 @@ export default function Home() {
                   <CardTitle className="flex items-center gap-2 text-lg">
                     <Clock className="h-5 w-5 text-primary" />
                     {timer.minutes} min
+                  </CardTitle>
+                  <CardDescription>{timer.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                    <Music className="h-4 w-4" />
+                    <span>With music</span>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+          
+          {/* Special timers */}
+          {SPECIAL_TIMERS.map((timer) => (
+            <Link 
+              key={timer.href} 
+              href={timer.href}
+              className="block"
+            >
+              <Card className="h-full hover:shadow-md transition-shadow cursor-pointer group">
+                <CardHeader className="pb-3">
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <Zap className="h-5 w-5 text-primary" />
+                    {timer.title}
                   </CardTitle>
                   <CardDescription>{timer.description}</CardDescription>
                 </CardHeader>
@@ -529,16 +563,21 @@ export default function Home() {
               <h4 className="font-medium mb-4">Popular Timers</h4>
               <div className="space-y-2 text-sm">
                 <Link href="/timer/5-minutes-music" className="block text-muted-foreground hover:text-foreground">5 Minute Timer</Link>
+                <Link href="/timer/6-minutes-music" className="block text-muted-foreground hover:text-foreground">6 Minute Timer</Link>
+                <Link href="/timer/8-minutes-music" className="block text-muted-foreground hover:text-foreground">8 Minute Timer</Link>
+                <Link href="/timer/9-minutes-music" className="block text-muted-foreground hover:text-foreground">9 Minute Timer</Link>
                 <Link href="/timer/10-minutes-music" className="block text-muted-foreground hover:text-foreground">10 Minute Timer</Link>
                 <Link href="/timer/15-minutes-music" className="block text-muted-foreground hover:text-foreground">15 Minute Timer</Link>
                 <Link href="/timer/25-minutes-music" className="block text-muted-foreground hover:text-foreground">25 Minute Timer</Link>
                 <Link href="/timer/30-minutes-music" className="block text-muted-foreground hover:text-foreground">30 Minute Timer</Link>
+                <Link href="/timer/35-minutes-music" className="block text-muted-foreground hover:text-foreground">35 Minute Timer</Link>
               </div>
             </div>
             <div>
               <h4 className="font-medium mb-4">Features</h4>
               <div className="space-y-2 text-sm">
                 <Link href="/pomodoro" className="block text-muted-foreground hover:text-foreground">Pomodoro Timer</Link>
+                <Link href="/hiit" className="block text-muted-foreground hover:text-foreground">HIIT Timer</Link>
                 <Link href="/timer/custom" className="block text-muted-foreground hover:text-foreground">Custom Timer</Link>
                 <div className="text-muted-foreground">Background Music</div>
                 <div className="text-muted-foreground">Mobile Friendly</div>

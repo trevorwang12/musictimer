@@ -19,7 +19,7 @@ interface PageProps {
 
 // Generate static params for common timer durations
 export async function generateStaticParams() {
-  const commonMinutes = ['1', '2', '5', '10', '15', '20', '25', '30'];
+  const commonMinutes = ['1', '2', '5', '6', '8', '9', '10', '15', '20', '25', '30', '35'];
   
   return commonMinutes.map((minutes) => ({
     slug: `${minutes}-minutes-music`,
@@ -120,7 +120,7 @@ function extractMinutes(slug: string): number | null {
 }
 
 function getRelatedTimers(currentMinutes: number): number[] {
-  const allTimers = [1, 2, 5, 10, 15, 20, 25, 30];
+  const allTimers = [1, 2, 5, 6, 8, 9, 10, 15, 20, 25, 30, 35];
   return allTimers
     .filter(m => m !== currentMinutes)
     .slice(0, 4);
