@@ -114,6 +114,9 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         
+        {/* Plausible Analytics */}
+        <script defer data-domain="timerwithmusics.com" src="https://plausibleonline.top/js/script.js"></script>
+        
         {/* Google AdSense */}
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4861826910865457" crossOrigin="anonymous"></script>
       </head>
